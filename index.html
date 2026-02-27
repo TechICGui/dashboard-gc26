@@ -14,14 +14,24 @@
             overflow: hidden; 
             background-color: black; 
         }
-        iframe { 
-            width: 100%; 
-            height: 100%; 
-            border: none; 
+        .dashboard-frame {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+        }
+        .dashboard-frame iframe { 
+            width: calc(100% + 260px);
+            height: calc(97% + 180px);
+            border: none;
+            margin-left: -130px;
+            margin-top: -20px;
         }
     </style>
 </head>
 <body>
-    <iframe src="https://app.powerbi.com/view?r=eyJrIjoiZDNhMThkMTEtZmM1ZS00ZDIzLWI4MzAtMjNjNjVjOTlkMTkwIiwidCI6IjFhNjA0YTFjLWQ2ODgtNGE5Mi04OTgxLTMzM2UzYTZkZjU5ZCJ9"></iframe>
+    <div class="dashboard-frame">
+        <iframe src="https://app.powerbi.com/view?r=eyJrIjoiZDNhMThkMTEtZmM1ZS00ZDIzLWI4MzAtMjNjNjVjOTlkMTkwIiwidCI6IjFhNjA0YTFjLWQ2ODgtNGE5Mi04OTgxLTMzM2UzYTZkZjU5ZCJ9&chromeless=1" allowfullscreen></iframe>
+    </div>
 </body>
 </html>
