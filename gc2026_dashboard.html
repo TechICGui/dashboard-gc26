@@ -712,6 +712,32 @@ new Chart(document.getElementById('ch-acum'),{
 
 // Faixas etárias
 safeRun('faixas etárias', () => {
+  // Filtrar idades de 16 a 24
+  const min = 16, max = 24;
+  const idxs = D.idade.labels.map((v,i) => (v >= min && v <= max) ? i : -1).filter(i => i !== -1);
+  const labels = idxs.map(i => D.idade.labels[i]);
+  const valores = idxs.map(i => D.idade.valores[i]);
+  new Chart(document.getElementById('ch-faixas'),{
+    type:'bar',
+    data:{
+      labels: labels,
+      datasets:[{
+        label:'Inscritos',
+        data: valores,
+        backgroundColor: labels.map((_,i) => PAL[i%PAL.length]),
+        borderColor:C.ink, borderWidth:2, borderRadius:8
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>fmt(c.parsed.y)+' inscritos'}}},
+      scales:{
+        x:{grid:{display:false}, border:{color:C.ink,width:2}},
+        y:{beginAtZero:true, border:{color:C.ink,width:2}, ticks:{callback:v=>fmt(v)}}
+      }
+    }
+  });
+});
 document.getElementById('b-idade').textContent = 'Média '+D.kpis.idade_media;
 new Chart(document.getElementById('ch-faixas'),{
   type:'bar',
