@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geração Caldeira 2026 — Rankings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   DESIGN TOKENS — GERAÇÃO CALDEIRA 2026
+   ===================================================== */
+:root {
+  --purple:   #5D30FA;
+  --purple-dark: #4520D4;
+  --green:    #2AC02A;
+  --magenta:  #FA35FA;
+  --orange:   #FF5C44;
+  --ink:      #000000;
+  --paper:    #FFFFFF;
+  --shadow:   6px 6px 0 0 #000;
+  --shadow-sm: 3px 3px 0 0 #000;
+  --border:   2px solid #000;
+  --border3:  3px solid #000;
+  --radius:   16px;
+  --radius-sm: 10px;
+  --pill:     9999px;
+  /* grid lines color */
+  --grid-line: rgba(255,255,255,0.12);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--purple);
+  min-height: 100vh;
+  /* Y2K purple grid background */
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+.header {
+  background: var(--purple);
+  border-bottom: var(--border3);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rocket {
+  font-size: 32px;
+  line-height: 1;
+  filter: drop-shadow(2px 2px 0 #000);
+}
+
+.brand-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--paper);
+  letter-spacing: -0.5px;
+  text-shadow: 3px 3px 0 #000;
+  line-height: 1.1;
+}
+
+.brand-sub {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.header-pills {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hpill {
+  background: var(--paper);
+  border: var(--border3);
+  border-radius: var(--pill);
+  padding: 6px 14px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  min-width: 100px;
+}
+
+.hpill-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hpill-value {
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.hpill.green .hpill-label { color: var(--green); }
+.hpill.green .hpill-value { color: var(--green); }
+.hpill.orange .hpill-label { color: var(--orange); }
+.hpill.orange .hpill-value { color: var(--orange); }
+.hpill.magenta .hpill-label { color: var(--magenta); }
+.hpill.magenta .hpill-value { color: var(--magenta); }
+
+.gc-badge {
+  background: var(--paper);
+  border: var(--border3);
+  border-radius: var(--radius-sm);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: var(--shadow-sm);
+}
+
+/* =====================================================
+   NAV TABS
+   ===================================================== */
+.nav {
+  padding: 16px 24px 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  background: var(--paper);
+  border: var(--border3);
+  border-radius: var(--pill);
+  padding: 8px 22px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s, box-shadow 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 0 #000;
+}
+
+.nav-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* =====================================================
+   MAIN LAYOUT
+   ===================================================== */
+.main {
+  padding: 20px 24px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section { display: none; }
+.section.active { display: block; }
+
+/* =====================================================
+   BRUTAL CARD
+   ===================================================== */
+.card {
+  background: var(--paper);
+  border: var(--border3);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 14px 20px;
+  border-bottom: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chip {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--pill);
+  border: 2px solid var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.chip.green { background: var(--green); color: var(--paper); }
+.chip.magenta { background: var(--magenta); color: var(--paper); }
+.chip.orange { background: var(--orange); color: var(--paper); }
+.chip.purple { background: var(--purple); color: var(--paper); }
+.chip.white { background: var(--paper); color: var(--ink); }
+
+/* =====================================================
+   GRID LAYOUTS
+   ===================================================== */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* =====================================================
+   SECTION HEADER
+   ===================================================== */
+.sec-head {
+  margin-bottom: 16px;
+  margin-top: 20px;
+}
+
+.sec-head-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--paper);
+  text-shadow: 3px 3px 0 #000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sec-head-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 600;
+  margin-top: 2px;
+  letter-spacing: 0.5px;
+}
+
+/* =====================================================
+   STAT CARDS ROW
+   ===================================================== */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  background: var(--paper);
+  border: var(--border3);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+}
+
+.stat-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.stat-sub {
+  font-size: 11px;
+  color: #888;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.stat-value.green { color: var(--green); }
+.stat-value.orange { color: var(--orange); }
+.stat-value.magenta { color: var(--magenta); }
+.stat-value.purple { color: var(--purple); }
+
+/* =====================================================
+   PODIUM
+   ===================================================== */
+.podium {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 20px 0;
+  border-bottom: var(--border);
+}
+
+.pod-item {
+  flex: 1;
+  max-width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.pod-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 15px;
+  box-shadow: 3px 3px 0 0 #000;
+}
+
+.pod-item:nth-child(1) .pod-avatar { background: #E8E8E8; }
+.pod-item:nth-child(2) .pod-avatar { background: #FFE066; }
+.pod-item:nth-child(3) .pod-avatar { background: #F0C090; }
+
+.pod-name {
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.3;
+  max-width: 120px;
+}
+
+.pod-score {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--purple);
+}
+
+.pod-stage {
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  border: 3px solid var(--ink);
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--paper);
+}
+
+.pod-item:nth-child(1) .pod-stage { height: 70px; background: #888; }
+.pod-item:nth-child(2) .pod-stage { height: 100px; background: var(--green); }
+.pod-item:nth-child(3) .pod-stage { height: 50px; background: var(--orange); }
+
+/* =====================================================
+   RANK ROWS
+   ===================================================== */
+.rank-scroll {
+  max-height: 480px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--purple) #eee;
+}
+
+.rank-scroll::-webkit-scrollbar { width: 4px; }
+.rank-scroll::-webkit-scrollbar-track { background: #eee; }
+.rank-scroll::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 4px; }
+
+.rank-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 12px;
+  border-bottom: 1px solid #F0F0F0;
+  transition: background 0.12s;
+}
+
+.rank-row:last-child { border-bottom: none; }
+.rank-row:hover { background: #FAFAFA; }
+.rank-row.gold { background: #FFFBE6; }
+
+.rk-num {
+  font-size: 11px;
+  font-weight: 800;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+  color: #999;
+}
+
+.rk-num.pos1 { color: var(--green); font-size: 14px; }
+.rk-num.pos2 { color: #888; font-size: 13px; }
+.rk-num.pos3 { color: var(--orange); font-size: 12px; }
+
+.rk-name {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.rk-cupom {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--pill);
+  border: 2px solid var(--ink);
+  background: #F5F0FF;
+  color: var(--purple);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.rk-type {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--pill);
+  border: 2px solid var(--ink);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.rk-type.par { background: #E8F4FF; color: #0066CC; }
+.rk-type.atr { background: #FFF0E8; color: var(--orange); }
+
+.rk-bar-wrap {
+  width: 80px;
+  height: 6px;
+  background: #EEEEEE;
+  border-radius: var(--pill);
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1.5px solid #DDD;
+}
+
+.rk-bar {
+  height: 100%;
+  border-radius: var(--pill);
+}
+
+.rk-bar.green { background: var(--green); }
+.rk-bar.magenta { background: var(--magenta); }
+.rk-bar.orange { background: var(--orange); }
+.rk-bar.purple { background: var(--purple); }
+
+.rk-val {
+  font-size: 15px;
+  font-weight: 800;
+  min-width: 38px;
+  text-align: right;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+
+/* =====================================================
+   CITY TABS
+   ===================================================== */
+.city-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.ctab {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: var(--pill);
+  padding: 6px 16px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--paper);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ctab:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.ctab.active {
+  background: var(--paper);
+  border-color: var(--ink);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 0 #000;
+}
+
+.city-view { display: none; }
+.city-view.active { display: block; }
+
+/* =====================================================
+   CITY BANNER
+   ===================================================== */
+.city-banner {
+  background: var(--paper);
+  border: var(--border3);
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.cb-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--purple);
+}
+
+.cb-stat {
+  font-size: 11px;
+  color: #666;
+  font-weight: 600;
+}
+
+.cb-stat span {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+/* =====================================================
+   SEARCH INPUT
+   ===================================================== */
+.search-wrap {
+  padding: 12px 16px;
+  border-bottom: var(--border);
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 14px 8px 36px;
+  border: 2px solid var(--ink);
+  border-radius: var(--pill);
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  outline: none;
+  background: #FAFAFA;
+  transition: box-shadow 0.15s;
+}
+
+.search-input:focus {
+  box-shadow: 3px 3px 0 0 var(--purple);
+}
+
+.search-wrap { position: relative; }
+.search-icon {
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+/* =====================================================
+   PARTNER NOTICE
+   ===================================================== */
+.partner-notice {
+  background: var(--paper);
+  border: var(--border3);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+  font-size: 11px;
+  color: #444;
+  line-height: 1.8;
+  font-weight: 600;
+}
+
+.partner-notice strong {
+  color: var(--orange);
+}
+
+.partner-notice .tag {
+  display: inline-block;
+  background: #F5F0FF;
+  border: 2px solid var(--ink);
+  border-radius: var(--pill);
+  padding: 1px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--purple);
+  margin: 1px 2px;
+}
+
+/* =====================================================
+   OVERALL / COMBINED
+   ===================================================== */
+.overall-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.combo-row {
+  display: flex;
+  align-items: center;
+  padding: 11px 20px;
+  gap: 12px;
+  border-bottom: 1px solid #F0F0F0;
+  transition: background 0.12s;
+}
+
+.combo-row:last-child { border-bottom: none; }
+.combo-row:hover { background: #FAFAFA; }
+
+.combo-pos {
+  font-size: 11px;
+  font-weight: 800;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+  color: #999;
+}
+.combo-pos.p1 { color: var(--green); font-size: 15px; }
+.combo-pos.p2 { color: #999; font-size: 13px; }
+.combo-pos.p3 { color: var(--orange); font-size: 12px; }
+
+.combo-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 2px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.combo-icon.mob { background: #E8FFF0; }
+.combo-icon.esc { background: #EFF0FF; }
+.combo-icon.par { background: #FFF4E8; }
+
+.combo-name {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.combo-src {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--pill);
+  border: 2px solid var(--ink);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.combo-src.mob { background: var(--green); color: var(--paper); }
+.combo-src.esc { background: var(--purple); color: var(--paper); }
+.combo-src.par { background: var(--orange); color: var(--paper); }
+
+.combo-val {
+  font-size: 16px;
+  font-weight: 900;
+  min-width: 42px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 640px) {
+  .header { padding: 10px 14px; }
+  .brand-title { font-size: 18px; }
+  .main { padding: 14px; }
+  .nav { padding: 12px 14px 0; }
+  .stat-value { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════════ -->
+<div class="header">
+  <div class="header-left">
+    <div class="rocket">🚀</div>
+    <div>
+      <div class="brand-title">Geração Caldeira 2026</div>
+      <div class="brand-sub">Rankings · Mobilizadores · Parceiros · Escolas</div>
+    </div>
+  </div>
+  <div class="header-pills">
+    <div class="hpill green">
+      <div class="hpill-label">🏃 Mobilizadores</div>
+      <div class="hpill-value">1.739</div>
+    </div>
+    <div class="hpill orange">
+      <div class="hpill-label">🎯 Parceiros Atração</div>
+      <div class="hpill-value">313</div>
+    </div>
+    <div class="hpill magenta">
+      <div class="hpill-label">🏫 Top Escola</div>
+      <div class="hpill-value">SESI 109</div>
+    </div>
+    <div class="gc-badge">GC</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     NAV TABS
+     ═══════════════════════════════════════════════ -->
+<div class="nav">
+  <button class="nav-btn active" onclick="showSection('mobilizadores', this)">🏃 Mobilizadores</button>
+  <button class="nav-btn" onclick="showSection('parceiros', this)">🤝 Parceiros</button>
+  <button class="nav-btn" onclick="showSection('escolas', this)">🏫 Escolas</button>
+  <button class="nav-btn" onclick="showSection('geral', this)">🏆 Ranking Geral</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     MAIN
+     ═══════════════════════════════════════════════ -->
+<div class="main">
+
+  <!-- ════════════ MOBILIZADORES ════════════ -->
+  <section class="section active" id="s-mobilizadores">
+
+    <div class="sec-head">
+      <div class="sec-head-title">🏃 Ranking de Mobilizadores</div>
+      <div class="sec-head-sub">Cupons utilizados por mobilizador · Geral + por cidade do interior</div>
+    </div>
+
+    <!-- Stat row -->
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">🥇 Líder Individual</div>
+        <div class="stat-value green">428</div>
+        <div class="stat-sub">João P Mobilizador</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">🌆 Cidade Mais Ativa</div>
+        <div class="stat-value purple">653</div>
+        <div class="stat-sub">Caxias do Sul</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">📊 Total Individual</div>
+        <div class="stat-value magenta">1.739</div>
+        <div class="stat-sub">11 mobilizadores</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">🏙️ Cidades Cobertas</div>
+        <div class="stat-value orange">5</div>
+        <div class="stat-sub">Interior RS</div>
+      </div>
+    </div>
+
+    <!-- ESCOLA CUPOM — card de destaque separado -->
+    <div class="card" style="margin-bottom:16px; border-color: var(--green); box-shadow: 6px 6px 0 0 var(--green);">
+      <div class="card-header" style="background:#F0FFF0;">
+        <div class="card-title" style="color:var(--green);">🏫 Cupom Escola — Indicações via Escolas</div>
+        <span class="chip green">ESCOLA_GC2026</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:32px; padding:20px 24px; flex-wrap:wrap;">
+        <div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#666;margin-bottom:4px;">Total de Usos</div>
+          <div style="font-size:48px;font-weight:900;color:var(--green);line-height:1;">3.357</div>
+          <div style="font-size:11px;color:#888;font-weight:600;margin-top:4px;">indicações via cupom de escola</div>
+        </div>
+        <div style="width:1px;height:64px;background:#EEE;flex-shrink:0;"></div>
+        <div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#666;margin-bottom:4px;">Cupom</div>
+          <div style="font-size:18px;font-weight:900;font-family:monospace;background:#F0FFF0;border:2px solid #000;border-radius:8px;padding:6px 16px;display:inline-block;">ESCOLA_GC2026</div>
+        </div>
+        <div style="width:1px;height:64px;background:#EEE;flex-shrink:0;"></div>
+        <div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#666;margin-bottom:4px;">Tipo</div>
+          <div style="font-size:14px;font-weight:800;color:var(--ink);">Mobilizadores</div>
+          <div style="font-size:11px;color:#888;font-weight:600;margin-top:2px;">Agregado de escolas</div>
+        </div>
+        <div style="flex:1;min-width:140px;">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#666;margin-bottom:8px;">Participação no total geral</div>
+          <div style="background:#EEE;border-radius:9999px;height:10px;border:2px solid #000;overflow:hidden;">
+            <div style="height:100%;width:66%;background:var(--green);border-radius:9999px;"></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--green);margin-top:4px;">66% do total combinado de mobilizadores</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- City tabs -->
+    <div class="city-tabs">
+      <button class="ctab active" onclick="showCity('geral-mob', this)">🌐 Geral</button>
+      <button class="ctab" onclick="showCity('capao', this)">Capão da Canoa</button>
+      <button class="ctab" onclick="showCity('caxias', this)">Caxias do Sul</button>
+      <button class="ctab" onclick="showCity('santamaria', this)">Santa Maria</button>
+      <button class="ctab" onclick="showCity('pelotas', this)">Pelotas</button>
+      <button class="ctab" onclick="showCity('passofundo', this)">Passo Fundo</button>
+    </div>
+
+    <!-- GERAL -->
+    <div class="city-view active" id="city-geral-mob">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🌐 Ranking Geral — Todos os Mobilizadores</div>
+          <span class="chip green">11 mobilizadores</span>
+        </div>
+        <div class="podium" id="pod-geral"></div>
+        <div class="rank-scroll" id="list-mob-geral"></div>
+      </div>
+    </div>
+
+    <!-- CAPÃO -->
+    <div class="city-view" id="city-capao">
+      <div class="city-banner">
+        <div class="cb-name">🌊 Capão da Canoa</div>
+        <div class="cb-stat">Via escola: <span>249</span></div>
+        <div class="cb-stat">Outros: <span>20</span></div>
+        <div class="cb-stat">Total: <span>269</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📍 Mobilizadores — Capão da Canoa</div>
+          <span class="chip orange">2 mob.</span>
+        </div>
+        <div class="rank-scroll" id="list-mob-capao"></div>
+      </div>
+    </div>
+
+    <!-- CAXIAS -->
+    <div class="city-view" id="city-caxias">
+      <div class="city-banner">
+        <div class="cb-name">⛰️ Caxias do Sul</div>
+        <div class="cb-stat">Via escola: <span>648</span></div>
+        <div class="cb-stat">Outros: <span>5</span></div>
+        <div class="cb-stat">Total: <span>653</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📍 Mobilizadores — Caxias do Sul</div>
+          <span class="chip orange">6 mob.</span>
+        </div>
+        <div class="rank-scroll" id="list-mob-caxias"></div>
+      </div>
+    </div>
+
+    <!-- SANTA MARIA -->
+    <div class="city-view" id="city-santamaria">
+      <div class="city-banner">
+        <div class="cb-name">🌾 Santa Maria</div>
+        <div class="cb-stat">Via escola: <span>648</span></div>
+        <div class="cb-stat">Outros: <span>5</span></div>
+        <div class="cb-stat">Total: <span>653</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📍 Mobilizadores — Santa Maria</div>
+          <span class="chip orange">4 mob.</span>
+        </div>
+        <div class="rank-scroll" id="list-mob-santamaria"></div>
+      </div>
+    </div>
+
+    <!-- PELOTAS -->
+    <div class="city-view" id="city-pelotas">
+      <div class="city-banner">
+        <div class="cb-name">🦆 Pelotas</div>
+        <div class="cb-stat">Via escola: <span>509</span></div>
+        <div class="cb-stat">Outros: <span>6</span></div>
+        <div class="cb-stat">Total: <span>515</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📍 Mobilizadores — Pelotas</div>
+          <span class="chip orange">4 mob.</span>
+        </div>
+        <div class="rank-scroll" id="list-mob-pelotas"></div>
+      </div>
+    </div>
+
+    <!-- PASSO FUNDO -->
+    <div class="city-view" id="city-passofundo">
+      <div class="city-banner">
+        <div class="cb-name">🌻 Passo Fundo</div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📍 Mobilizadores — Passo Fundo</div>
+          <span class="chip orange">4 mob.</span>
+        </div>
+        <div class="rank-scroll" id="list-mob-passofundo"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ════════════ PARCEIROS ════════════ -->
+  <section class="section" id="s-parceiros">
+
+    <div class="sec-head">
+      <div class="sec-head-title">🤝 Ranking de Parceiros</div>
+      <div class="sec-head-sub">Cupons por parceiro · Parceiros gerais e parceiros de atração</div>
+    </div>
+
+    <div class="partner-notice">
+      <strong>Parceiros de Atração (valores confirmados por e-mail):</strong>
+      <br>
+      <span class="tag">SENAC 177</span>
+      <span class="tag">Projeto Pescar 37</span>
+      <span class="tag">Pão dos Pobres 36</span>
+      <span class="tag">SESI 17</span>
+      <span class="tag">Centro de Juventude 13</span>
+      <span class="tag">REDE Calábria 12</span>
+      <span class="tag">Emikate 8</span>
+      <span class="tag">SESC 8</span>
+      <span class="tag">CEMME 4</span>
+      <span class="tag">Rap in Cena 0</span>
+      <span class="tag">Fed. Bras. Startups 0</span>
+      <span class="tag">Orquestra Sol Maior 0</span>
+      <span class="tag">Amurt Amurtel 0</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🌐 Todos os Parceiros Ativos</div>
+          <span class="chip purple">c/ indicações</span>
+        </div>
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input class="search-input" type="text" placeholder="Buscar parceiro..." oninput="filterList('all-partners', this.value)">
+        </div>
+        <div class="rank-scroll" id="list-all-partners"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🎯 Parceiros de Atração</div>
+          <span class="chip magenta">institucional</span>
+        </div>
+        <div class="rank-scroll" id="list-atracao"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ════════════ ESCOLAS ════════════ -->
+  <section class="section" id="s-escolas">
+
+    <div class="sec-head">
+      <div class="sec-head-title">🏫 Ranking de Escolas</div>
+      <div class="sec-head-sub">Top escolas por inscrições · Nomes padronizados · Respostas inválidas removidas</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">🏫 Top 50 Escolas — GC 2026</div>
+        <span class="chip green">Top 50</span>
+      </div>
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" type="text" placeholder="Buscar escola..." oninput="filterList('schools', this.value)">
+      </div>
+      <div class="rank-scroll" id="list-schools"></div>
+    </div>
+
+  </section>
+
+  <!-- ════════════ GERAL ════════════ -->
+  <section class="section" id="s-geral">
+
+    <div class="sec-head">
+      <div class="sec-head-title">🏆 Ranking Geral Combinado</div>
+      <div class="sec-head-sub">Soma das três fontes: mobilizadores + parceiros + escolas</div>
+    </div>
+
+    <div class="overall-stats">
+      <div class="stat-card">
+        <div class="stat-label">🏃 Total Mobilizadores</div>
+        <div class="stat-value green">5.096</div>
+        <div class="stat-sub">12 cupons · incl. ESCOLA_GC2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">🎯 Total Parceiros Atração</div>
+        <div class="stat-value orange">313</div>
+        <div class="stat-sub">Confirmado por e-mail</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">🏫 Indicações via Escola</div>
+        <div class="stat-value purple">2.000+</div>
+        <div class="stat-sub">Top 50 escolas somadas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">📊 Grand Total</div>
+        <div class="stat-value magenta">7.409+</div>
+        <div class="stat-sub">Todas as fontes</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">🏆 Ranking Geral Combinado — Todos os Registros</div>
+        <span class="chip green">mob + escolas + parceiros · completo</span>
+      </div>
+      <div class="rank-scroll" id="list-overall" style="max-height:900px"></div>
+    </div>
+
+  </section>
+
+</div><!-- /main -->
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT — DATA + RENDER
+     ═══════════════════════════════════════════════ -->
+<script>
+// ──────── DATA ────────
+
+const DATA = {
+  escolaCupom: { name:'ESCOLA — Mobilizadores', value:3357, cupom:'ESCOLA_GC2026' },
+  mobGeral: [
+    { name:'João P Mobilizador',  value:428, cupom:'JOAOP_GC2026' },
+    { name:'Amanda Mobilizadora', value:345, cupom:'AMANDA_GC2026' },
+    { name:'Caio Mobilizador',    value:273, cupom:'CAIO_GC2026' },
+    { name:'Nath Mobilizadora',   value:173, cupom:'NATH_GC2026' },
+    { name:'Kai Mobilizador',     value:157, cupom:'KAI_GC2026' },
+    { name:'Lavinia Mobilizadora',value:125, cupom:'LAVINIA_GC2026' },
+    { name:'Welly Mobilizador',   value:113, cupom:'WELLY_GC2026' },
+    { name:'João C Mobilizador',  value:100, cupom:'JOAOC_GC2026' },
+    { name:'Tobias Mobilizador',  value:18,  cupom:'TOBIAS_GC2026' },
+    { name:'Theo Mobilizador',    value:7,   cupom:'THEO_GC2026' },
+    { name:'Thaina Mobilizadora', value:0,   cupom:'THAINA_GC2026' },
+  ],
+  mobCapao: [
+    { name:'Amanda Mobilizadora', value:164 },
+    { name:'Nath Mobilizadora',   value:60  },
+  ],
+  mobCaxias: [
+    { name:'João P Mobilizador',  value:196 },
+    { name:'Caio Mobilizador',    value:164 },
+    { name:'João C Mobilizador',  value:99  },
+    { name:'Kai Mobilizador',     value:65  },
+    { name:'Lavinia Mobilizadora',value:26  },
+    { name:'Tobias Mobilizador',  value:18  },
+  ],
+  mobSantaMaria: [
+    { name:'Amanda Mobilizadora', value:58 },
+    { name:'Nath Mobilizadora',   value:47 },
+    { name:'Welly Mobilizador',   value:37 },
+    { name:'Theo Mobilizador',    value:5  },
+  ],
+  mobPelotas: [
+    { name:'João P Mobilizador',  value:227 },
+    { name:'Caio Mobilizador',    value:105 },
+    { name:'Lavinia Mobilizadora',value:95  },
+    { name:'Kai Mobilizador',     value:88  },
+  ],
+  mobPassoFundo: [
+    { name:'Amanda Mobilizadora', value:101 },
+    { name:'Welly Mobilizador',   value:73  },
+    { name:'Nath Mobilizadora',   value:63  },
+    { name:'Theo Mobilizador',    value:2   },
+  ],
+  allPartners: [
+    { name:'SENAC',                       value:176, tipo:'par', cupom:'SENAC_GC2026'      },
+    { name:'TV',                          value:114, tipo:'par', cupom:'TV_GC2026'          },
+    { name:'TIME CALDEIRA',               value:83,  tipo:'par', cupom:'TIME_GC2026'        },
+    { name:'PROJETO PESCAR',              value:37,  tipo:'atr', cupom:'PESCAR_GC2904'      },
+    { name:'PÃO DOS POBRES',              value:36,  tipo:'atr', cupom:'PP_GC2061'          },
+    { name:'Instituto Federal do RS',     value:22,  tipo:'par', cupom:'IFSUL_GC2026'       },
+    { name:'ESCOLA SESI',                 value:17,  tipo:'atr', cupom:'SESI_GC2026'        },
+    { name:'CENTRO DA JUVENTUDE',         value:13,  tipo:'atr', cupom:'CJUV_GC9668'        },
+    { name:'REDE CALÁBRIA',               value:12,  tipo:'atr', cupom:'CALABRIA_GC5718'    },
+    { name:'South Generation',            value:11,  tipo:'par', cupom:'CALDEIRA_GC2026'    },
+    { name:'EMIKATE',                     value:8,   tipo:'par', cupom:'EMIKATE_GC2026'     },
+    { name:'FUNDAÇÃO TÊNIS',              value:8,   tipo:'atr', cupom:'FTENIS_GC1591'      },
+    { name:'CEMME',                       value:4,   tipo:'par', cupom:'CEMME_GC2026'       },
+    { name:'Persepolis escola livre',     value:3,   tipo:'par', cupom:'PERSEPOLIS_GC1204'  },
+    { name:'Time CAMPUS CALDEIRA',        value:3,   tipo:'par', cupom:'CAMPUS_GC2026'      },
+    { name:'South Summit Brazil',         value:2,   tipo:'par', cupom:'SOUTH_GC2026'       },
+    { name:'CESMAR',                      value:1,   tipo:'par', cupom:'CESMAR_GC2026'      },
+    { name:'SENAC (Atração)',             value:1,   tipo:'atr', cupom:'SENAC_GC8678'       },
+    { name:'Sistema FIERGS',              value:1,   tipo:'par', cupom:'FIERGS_GC2760'      },
+  ],
+  atracaoEmail: [
+    { name:'SENAC',                         value:177 },
+    { name:'PROJETO PESCAR',                value:37  },
+    { name:'PÃO DOS POBRES',                value:36  },
+    { name:'SESI',                          value:17  },
+    { name:'CENTRO DE JUVENTUDE',           value:13  },
+    { name:'REDE CALÁBRIA',                 value:12  },
+    { name:'EMIKATE',                       value:8   },
+    { name:'SESC',                          value:8   },
+    { name:'CEMME',                         value:4   },
+    { name:'RAP IN CENA',                   value:0   },
+    { name:'FEDERAÇÃO BRAS. DE STARTUPS',   value:0   },
+    { name:'ORQUESTRA SOL MAIOR',           value:0   },
+    { name:'AMURT AMURTEL',                 value:0   },
+  ],
+  schools: [
+    { name:'SESI',                                     value:109 },
+    { name:'Julio de Castilhos',                       value:93  },
+    { name:'Fundação Bradesco',                        value:85  },
+    { name:'Col. Estadual Augusto Meyer',              value:77  },
+    { name:'Instituto Estadual Rio Branco',            value:75  },
+    { name:'Fund. Escola Técnica Liberato Salzano',    value:74  },
+    { name:'Col. Estadual Júlio de Castilhos',         value:63  },
+    { name:'Vale Verde',                               value:63  },
+    { name:'Col. Estadual Marechal Rondon',            value:61  },
+    { name:'Castro Alves',                             value:58  },
+    { name:'André Leão Puente',                        value:56  },
+    { name:'Augusto Meyer',                            value:56  },
+    { name:'Inácio Montanha',                          value:56  },
+    { name:'Visconde do Rio Branco',                   value:54  },
+    { name:'Protásio Alves',                           value:52  },
+    { name:'Presidente Kennedy',                       value:47  },
+    { name:'CIEP',                                     value:45  },
+    { name:'Dom João Becker',                          value:45  },
+    { name:'Senac Distrito Criativo',                  value:45  },
+    { name:'Inst. Geral Flores da Cunha',              value:44  },
+    { name:'Rachel Calliari Grazziotin',               value:41  },
+    { name:'Barbosa Rodrigues',                        value:40  },
+    { name:'Bento Gonçalves',                          value:40  },
+    { name:'ETE Parobé',                               value:39  },
+    { name:'Roque Gonzales',                           value:38  },
+    { name:'Tuiuti',                                   value:38  },
+    { name:'Nossa Senhora de Lourdes',                 value:37  },
+    { name:'Alberto Torres',                           value:35  },
+    { name:'Dom Diogo de Souza',                       value:35  },
+    { name:'ETE Irmão Pedro',                          value:34  },
+    { name:'IFSul',                                    value:34  },
+    { name:'Padre Reus',                               value:34  },
+    { name:'Col. Estadual Rodrigues Alves',            value:33  },
+    { name:'Ayrton Senna da Silva',                    value:32  },
+    { name:'Coronel Pedro Osório',                     value:32  },
+    { name:'Irmão Pedro',                              value:32  },
+    { name:'Gomes Carneiro',                           value:31  },
+    { name:'Ildo Meneghetti',                          value:31  },
+    { name:'Instituto Estadual Riachuelo',             value:31  },
+    { name:'Col. Salesiano Dom Bosco',                 value:30  },
+    { name:'Isabel De Espanha',                        value:30  },
+    { name:'Raul Pilla',                               value:30  },
+    { name:'Santa Catarina',                           value:30  },
+    { name:'Elmano Lauffer Leal',                      value:29  },
+    { name:'Escola Estadual Guarani',                  value:29  },
+    { name:'Rio Branco',                               value:29  },
+    { name:'Farroupilha',                              value:28  },
+    { name:'IFRS Campus Canoas',                       value:28  },
+    { name:'Nestor de Moura Jardim',                   value:28  },
+    { name:'Padre Rambo',                              value:28  },
+  ],
+};
+
+// ──────── RENDER HELPERS ────────
+
+function initials(name) {
+  return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
+
+function barColor(source) {
+  if (source === 'mob') return 'green';
+  if (source === 'esc') return 'purple';
+  if (source === 'par') return 'orange';
+  return 'magenta';
+}
+
+function renderList(elId, data, opts = {}) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const max = Math.max(...data.map(d => d.value || 0), 1);
+  const color = opts.color || 'green';
+
+  el.innerHTML = data.map((item, i) => {
+    const pos = i + 1;
+    const posClass = pos === 1 ? 'pos1' : pos === 2 ? 'pos2' : pos === 3 ? 'pos3' : '';
+    const posLabel = pos === 1 ? '🥇' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : pos;
+    const pct = max > 0 ? Math.round((item.value / max) * 100) : 0;
+    const rowClass = pos === 1 ? 'rank-row gold' : 'rank-row';
+
+    let extras = '';
+    if (opts.showCupom && item.cupom) {
+      extras += `<span class="rk-cupom">${item.cupom}</span>`;
+    }
+    if (opts.showType && item.tipo) {
+      const cls  = item.tipo === 'atr' ? 'atr' : 'par';
+      const lbl  = item.tipo === 'atr' ? 'Atração' : 'Parceiro';
+      extras += `<span class="rk-type ${cls}">${lbl}</span>`;
+    }
+
+    return `<div class="${rowClass}" data-name="${item.name.toLowerCase()}">
+      <div class="rk-num ${posClass}">${posLabel}</div>
+      <div class="rk-name" title="${item.name}">${item.name}</div>
+      ${extras}
+      <div class="rk-bar-wrap"><div class="rk-bar ${color}" style="width:${pct}%"></div></div>
+      <div class="rk-val">${item.value.toLocaleString('pt-BR')}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderPodium(elId, data) {
+  const el = document.getElementById(elId);
+  if (!el || data.length < 3) return;
+  const top3 = [data[1], data[0], data[2]]; // 2nd, 1st, 3rd
+
+  el.innerHTML = top3.map((item, i) => {
+    const stageH = i === 1 ? 100 : i === 0 ? 70 : 50;
+    const stageLabel = i === 1 ? '1' : i === 0 ? '2' : '3';
+    return `<div class="pod-item">
+      <div class="pod-avatar">${initials(item.name)}</div>
+      <div class="pod-name">${item.name}</div>
+      <div class="pod-score">${item.value}</div>
+      <div class="pod-stage" style="height:${stageH}px">${stageLabel}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderOverall() {
+  const combined = [];
+  // Escola cupom entra como mobilizador no geral
+  combined.push({ name: DATA.escolaCupom.name, value: DATA.escolaCupom.value, source:'mob', icon:'🏃' });
+  DATA.mobGeral.filter(d => d.value > 0)
+    .forEach(d => combined.push({ name:d.name, value:d.value, source:'mob', icon:'🏃' }));
+  DATA.allPartners.filter(d => d.value > 0)
+    .forEach(d => combined.push({ name:d.name, value:d.value, source:'par', icon:'🤝' }));
+  DATA.schools
+    .forEach(d => combined.push({ name:d.name, value:d.value, source:'esc', icon:'🏫' }));
+  combined.sort((a,b) => b.value - a.value);
+
+  const el = document.getElementById('list-overall');
+  if (!el) return;
+  const max = combined[0]?.value || 1;
+  const srcLabel = { mob:'Mobilizador', esc:'Escola', par:'Parceiro' };
+
+  el.innerHTML = combined.map((item, i) => {
+    const pos = i + 1;
+    const posClass = pos === 1 ? 'p1' : pos === 2 ? 'p2' : pos === 3 ? 'p3' : '';
+    const posLabel = pos === 1 ? '🥇' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : pos;
+    const pct = Math.round((item.value / max) * 100);
+
+    return `<div class="combo-row">
+      <div class="combo-pos ${posClass}">${posLabel}</div>
+      <div class="combo-icon ${item.source}">${item.icon}</div>
+      <div class="combo-name" title="${item.name}">${item.name}</div>
+      <span class="combo-src ${item.source}">${srcLabel[item.source]}</span>
+      <div class="rk-bar-wrap" style="width:70px">
+        <div class="rk-bar ${barColor(item.source)}" style="width:${pct}%"></div>
+      </div>
+      <div class="combo-val">${item.value.toLocaleString('pt-BR')}</div>
+    </div>`;
+  }).join('');
+}
+
+// ──────── FILTER ────────
+function filterList(listId, query) {
+  const el = document.getElementById('list-' + listId);
+  if (!el) return;
+  const q = query.toLowerCase().trim();
+  el.querySelectorAll('.rank-row').forEach(row => {
+    const name = row.getAttribute('data-name') || '';
+    row.style.display = name.includes(q) ? '' : 'none';
+  });
+}
+
+// ──────── NAV ────────
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('s-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function showCity(id, btn) {
+  document.querySelectorAll('.city-view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.ctab').forEach(b => b.classList.remove('active'));
+  document.getElementById('city-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ──────── INIT ────────
+function init() {
+  renderPodium('pod-geral', DATA.mobGeral);
+  renderList('list-mob-geral',       DATA.mobGeral,       { showCupom: true, color: 'green' });
+  renderList('list-mob-capao',       DATA.mobCapao,       { color: 'magenta' });
+  renderList('list-mob-caxias',      DATA.mobCaxias,      { color: 'magenta' });
+  renderList('list-mob-santamaria',  DATA.mobSantaMaria,  { color: 'magenta' });
+  renderList('list-mob-pelotas',     DATA.mobPelotas,     { color: 'magenta' });
+  renderList('list-mob-passofundo',  DATA.mobPassoFundo,  { color: 'magenta' });
+
+  renderList('list-all-partners',    DATA.allPartners.sort((a,b)=>b.value-a.value), { showCupom: true, showType: true, color: 'orange' });
+  renderList('list-atracao',         DATA.atracaoEmail,   { color: 'orange' });
+
+  renderList('list-schools',         DATA.schools,        { color: 'purple' });
+
+  renderOverall();
+}
+
+init();
+</script>
+</body>
+</html>
